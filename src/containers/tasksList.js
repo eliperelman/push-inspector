@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Task from '../components/task';
+import PieChart from '../components/pieChart';
 import { VictoryPie, VictoryAnimation } from 'victory';
 
 
 class TasksList extends Component {
 
+	constructor(props) {
+		super(props);
 
+	}
 
 	componentWillMount() {
 		this.props.fetchTasks();
@@ -17,130 +21,51 @@ class TasksList extends Component {
 		this.props.setActiveTask(task);
 	}
 
-  renderTasks() {
-		const tasks = this.props.tasks;
+  renderTasks(tasks) {
 		return tasks.map((task) => {
-      return (
-          <tbody onClick={this.taskClicked.bind(this, task)} key={task.status.taskId}>
-            <Task task={task} />
-          </tbody>
-      )
+			if(!!!this.props.activeTaskStatus || task.status.state == this.props.activeTaskStatus){
+				return (
+	          <tbody onClick={this.taskClicked.bind(this, task)} key={task.status.taskId}>
+	            <Task task={task} />
+	          </tbody>
+	      )
+			}
     });
   }
 
-	renderPieChart() {
-		console.log('pie', this.props.tasks);
-		const tasks = this.props.tasks,
-					completed = [],
-					failed = [],
-					exception = [],
-					unscheduled = [],
-					pending = [],
-					running = [];
-
-		let status;
-
-		tasks.map((task) => {
-			status = task.status.state;
-			switch (status) {
-				case "completed":
-					completed.push(task);
-					break;
-				case "failed":
-					failed.push(task);
-					break;
-				case "exception":
-					exception.push(task);
-					break;
-				case "unscheduled":
-					unscheduled.push(task);
-					break;
-				case "pending":
-					pending.push(task);
-					break;
-				case "running":
-					running.push(task);
-					break;
-			}
-
-		})
-
-		if(!!!completed.length && !!!failed.length && !!!exception.length) {
-			return (
-				<div>
-					Waiting for data...
-				</div>
-			);
+	pieSliceOnClick(elem) {
+		const text = elem.text;
+		switch (text) {
+			case "C":
+				this.props.setActiveTaskStatus("completed");
+				break;
+			case "F":
+				this.props.setActiveTaskStatus("failed");
+				break;
+			case "E":
+				this.props.setActiveTaskStatus("exception");
+				break;
+			case "U":
+				this.props.setActiveTaskStatus("unscheduled");
+				break;
+			case "P":
+				this.props.setActiveTaskStatus("pending");
+				break;
+			case "R":
+				this.props.setActiveTaskStatus("running");
+				break;
 		}
 
-		return (
-			<div>
-				<VictoryPie
-					data={[
-						{x: "C", y: completed.length},
-				    {x: "F", y: failed.length},
-				    {x: "E", y: exception.length},
-						{x: "U", y: unscheduled.length},
-						{x: "P", y: pending.length},
-						{x: "R", y: running.length},
-					]}
-					events={[{
-						target: "data",
-						childName: "C",
-						eventHandlers: {
-			        onClick: (evt, props) => {
-								return [
-									{
-                    target: "labels",
-                    mutatio: () => {
-                      return {
-                        style: {fill: "yellow"},
-                        text: "waddup"
-                      };
-                    }
-                  },
-									{
-                    mutation: () => {
-											this.props.fetchTasks("Pv3LWd1oTmWzoE1jftZVfg");
-											return {
-                        style: {fill: "red"}
-                      };
-                    }
-                  }
-                ];
-			        }
-			      }
-			    }]}
-
-					animate={{
-						duration: 1000,
-					}}
-
-					colorScale={[
-				    "rgb(6, 71, 52)",
-				    "#063647",
-				    "#383737",
-						"#777777",
-						"#5bc0de",
-						"#337ab7"
-				  ]}
-					style={{
-				    labels: {
-				      fill: "white",
-				      fontSize: 12
-				    }
-				  }}
-
-				/>
-			</div>
-		)
 	}
 
 	render() {
+		const tasks = this.props.tasks;
 		return (
 			<div className="col-xs-6">
-				<div>{this.renderPieChart()}</div>
-				<table>
+				<PieChart
+					tasks={this.props.tasks}
+					onSliceClick={this.pieSliceOnClick.bind(this)} />
+				<table id="tasks-list" className="table task-list-table">
           <thead>
           <tr>
               <th>TaskId</th>
@@ -149,7 +74,7 @@ class TasksList extends Component {
               <th>Runs</th>
           </tr>
           </thead>
-          {this.renderTasks()}
+          {this.renderTasks(tasks)}
         </table>
 			</div>
 		);
@@ -158,7 +83,8 @@ class TasksList extends Component {
 
 function mapStateToProps(state) {
 	return {
-		tasks: state.tasks
+		tasks: state.tasks,
+		activeTaskStatus: state.activeTaskStatus
 	}
 }
 

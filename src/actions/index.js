@@ -1,6 +1,7 @@
 import {
 	FETCH_TASKS,
-	ACTIVE_TASK
+	ACTIVE_TASK,
+	ACTIVE_TASK_STATUS
 } from './types';
 
 import taskcluster from 'taskcluster-client';
@@ -24,5 +25,11 @@ export function setActiveTask(task) {
 	return {
 		type: ACTIVE_TASK,
 		payload: task
+	}
+}
+export function setActiveTaskStatus(status) {
+	return {
+		type: ACTIVE_TASK_STATUS,
+		payload: status
 	}
 }

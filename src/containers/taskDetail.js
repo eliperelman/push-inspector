@@ -9,11 +9,12 @@ class TaskDetail extends Component {
 		this.showScope = this.showScope.bind(this);
 	}
 
-	showScope(task) {
+	showScope(task, status) {
 		const scopes = task.scopes;
+		const id = status.taskId;
 		return scopes.map((scope) => {
 			return (
-				<ul>{scope}</ul>
+				<ul key={id}>{scope}</ul>
 			);
 		});
 	}
@@ -25,9 +26,6 @@ class TaskDetail extends Component {
 		const task = this.props.activeTask.task;
 		const status = this.props.activeTask.status;
 
-		const that = this;
-
-		console.log(this.props.activeTask);
 		return (
 			<table>
 				<tbody>
@@ -67,7 +65,7 @@ class TaskDetail extends Component {
 					</tr>
 					<tr>
 						<td><b>Scope</b></td>
-						<td>{this.showScope(task)}</td>
+						<td>{this.showScope(task, status)}</td>
 					</tr>
 				</tbody>
       </table>
