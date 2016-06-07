@@ -22,15 +22,22 @@ class TasksList extends Component {
 	}
 
   renderTasks(tasks) {
-		return tasks.map((task) => {
-			if(!!!this.props.activeTaskStatus || task.status.state == this.props.activeTaskStatus){
-				return (
-	          <tbody onClick={this.taskClicked.bind(this, task)} key={task.status.taskId}>
-	            <Task task={task} />
-	          </tbody>
-	      )
+		if(tasks.length > 0) {
+			const status = this.props.activeTaskStatus;
+			let list = tasks;
+			if(!!status) {
+				list =  tasks.filter((l) => {
+					return l.status.state == status;
+				});
 			}
-    });
+			return list.map(task => {
+					return (
+						<tbody onClick={this.taskClicked.bind(this, task)} key={task.status.taskId}>
+	          	<Task task={task} />
+		        </tbody>
+			    )
+			});
+		}
   }
 
 	pieSliceOnClick(elem) {
@@ -60,6 +67,7 @@ class TasksList extends Component {
 
 	render() {
 		const tasks = this.props.tasks;
+
 		return (
 			<div className="col-xs-6">
 				<PieChart

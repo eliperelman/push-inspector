@@ -20,9 +20,8 @@ export default class PieChart extends Component {
 					unscheduled = [],
 					pending = [],
 					running = [],
-          tasks = this.props.tasks;
-
-		let status;
+          tasks = this.props.tasks,
+          status;
 
 		tasks.map((task) => {
 			status = task.status.state;
@@ -79,19 +78,7 @@ export default class PieChart extends Component {
                     target: "labels",
                     mutation: (elem) => {
 											this.props.onSliceClick(elem);
-											return {
-                        style: {fill: "yellow"},
-                        text: "waddup"
-                      };
-                    }
-                  },
-									{
-                    mutation: () => {
-                      const currentFill = props.style.fill;
-                      console.log('prop: ' + props + ' event: ' + evt);
-                      return{
-                          style: {fill: currentFill == 'pink' ? "blue" : "pink"}
-                      };
+											return elem;
                     }
                   }
                 ];

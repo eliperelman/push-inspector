@@ -25,7 +25,7 @@ class Search extends Component {
 
   render() {
 		return (
-      <form onSubmit={this.onFormSubmit} className="input-group">
+      <form onSubmit={this.onFormSubmit} className="input-group search-form">
         <input
           placeholder="Enter a task group ID"
           className="form-control"

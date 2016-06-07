@@ -25,7 +25,6 @@ class TaskDetail extends Component {
 		}
 		const task = this.props.activeTask.task;
 		const status = this.props.activeTask.status;
-
 		return (
 			<table>
 				<tbody>
@@ -66,6 +65,10 @@ class TaskDetail extends Component {
 					<tr>
 						<td><b>Scope</b></td>
 						<td>{this.showScope(task, status)}</td>
+					</tr>
+					<tr>
+						<td><b>Task Definition Payload</b></td>
+						<td><pre><code>{JSON.stringify(task.payload, null, 2)}</code></pre></td>
 					</tr>
 				</tbody>
       </table>
