@@ -47,23 +47,35 @@ export default class PieChart extends Component {
 			}
 		});
 
-    const chartColors = [
-      "rgb(6, 71, 52)",
-      "#063647",
-      "#383737",
-      "#777777",
-      "#5bc0de",
-      "#337ab7"
-    ];
 
-    const chartComponents = [
-      {x: "C", y: completed.length},
-      {x: "F", y: failed.length},
-      {x: "E", y: exception.length},
-      {x: "U", y: unscheduled.length},
-      {x: "P", y: pending.length},
-      {x: "R", y: running.length}
-    ];
+
+    //  Construct Pie Components
+    let chartComponents = [],
+        chartColors = [];
+    if(completed.length) {
+      chartComponents.push({x: 'C', y: completed.length});
+      chartColors.push("#5cb85c");
+    }
+    if(failed.length) {
+      chartComponents.push({x: 'F', y: failed.length})
+      chartColors.push("#d9534f");
+    }
+    if(exception.length) {
+      chartComponents.push({x: 'E', y: exception.length})
+      chartColors.push("#7d32h7");
+    }
+    if(unscheduled.length) {
+      chartComponents.push({x: 'U', y: unscheduled.length})
+      chartColors.push("#777777");
+    }
+    if(running.length) {
+      chartComponents.push({x: 'R', y: running.length})
+      chartColors.push("#337ab7");
+    }
+    if(pending.length) {
+      chartComponents.push({x: 'P', y: pending.length})
+      chartColors.push("#5bc0de");
+    }
 
 		return (
 			<div>
@@ -95,7 +107,7 @@ export default class PieChart extends Component {
 					style={{
 				    labels: {
 				      fill: "white",
-				      fontSize: 8
+				      fontSize: 6,
 				    }
 				  }}
 
@@ -106,6 +118,7 @@ export default class PieChart extends Component {
     return (
 
       <div>
+
         <VictoryPie />
       </div>
     )

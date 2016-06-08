@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import * as bs from 'react-bootstrap';
 
 class TaskDetail extends Component {
 
@@ -56,10 +57,12 @@ class TaskDetail extends Component {
 					<tr>
 						<td><b>Action</b></td>
 						<td>
-							<button>Schedule Task</button>
-							<button>Retrigger Task</button>
-							<button>Cancel Task</button>
-							<button>Purger Worker Cache</button>
+							<bs.ButtonToolbar>
+								<bs.Button bsSize="small"><bs.Glyphicon glyph="play"/>&nbsp;Schedule Task</bs.Button>
+								<bs.Button bsSize="small"><bs.Glyphicon glyph="repeat"/>&nbsp;Retrigger Task</bs.Button>
+								<bs.Button bsSize="small"><bs.Glyphicon glyph="stop"/>&nbsp;Cancel Task</bs.Button>
+								<bs.Button bsSize="small"><bs.Glyphicon glyph="trash"/>&nbsp;Purger Worker Cache</bs.Button>
+							</bs.ButtonToolbar>
 						</td>
 					</tr>
 					<tr>
@@ -67,9 +70,19 @@ class TaskDetail extends Component {
 						<td>{this.showScope(task, status)}</td>
 					</tr>
 					<tr>
-						<td><b>Task Definition Payload</b></td>
+						<td className="baseline-align"><b>Task Definition Payload</b></td>
 						<td><pre><code>{JSON.stringify(task.payload, null, 2)}</code></pre></td>
 					</tr>
+					<tr>
+						<td><b>Debug</b></td>
+						<td>
+							<bs.ButtonToolbar>
+						    <bs.Button bsSize="small"><bs.Glyphicon glyph="edit"/>&nbsp;Edit and Create</bs.Button>
+								<bs.Button bsSize="small"><bs.Glyphicon glyph="console"/>&nbsp;One-Click Loaner</bs.Button>
+							</bs.ButtonToolbar>
+						</td>
+					</tr>
+
 				</tbody>
       </table>
 		);

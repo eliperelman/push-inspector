@@ -29,11 +29,18 @@
   },
   "dependencies": {
     "axios": "^0.11.1",
+    "chart.js": "^1.1.1",
+    "chartjs": "^0.3.23",
     "lodash": "^3.10.1",
     "react": "^0.14.3",
+    "react-bootstrap": "^0.29.4",
+    "react-bootstrap-table": "^2.3.4",
+    "react-chartjs": "^0.7.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",
+    "react-simple-pie-chart": "^0.3.1",
+    "react-svg-piechart": "^1.1.0",
     "redux": "^3.0.4",
     "redux-thunk": "^2.1.0",
     "victory": "^0.8.0"

@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import Task from '../components/task';
 import PieChart from '../components/pieChart';
 import { VictoryPie, VictoryAnimation } from 'victory';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 
 class TasksList extends Component {
@@ -69,7 +70,7 @@ class TasksList extends Component {
 		const tasks = this.props.tasks;
 
 		return (
-			<div className="col-xs-6">
+			<div className="col-xs-5">
 				<PieChart
 					tasks={this.props.tasks}
 					onSliceClick={this.pieSliceOnClick.bind(this)} />
