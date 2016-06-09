@@ -39,7 +39,6 @@ class Search extends Component {
             <button type="submit" className="btn btn-secondary">Inspect</button>
           </Link>
         </form>
-        <PreviousTasks />
       </div>
 		);
 

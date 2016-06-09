@@ -1,7 +1,8 @@
 import {
 	FETCH_TASKS,
 	FETCH_TASK,
-	FETCH_STATUS
+	FETCH_STATUS,
+	ACTIVE_TASK_STATUS
 } from './types';
 
 import taskcluster from 'taskcluster-client';
@@ -25,10 +26,8 @@ export function fetchTasks(id = "ARUrTTyjQRiXEeo1uySLnA") {
 export function fetchTask(id = "AB0MITrrT2WoIfKvmruvyw") {
 	const queue = new taskcluster.Queue();
 	const request = queue.task(id);
-	console.log('Fetching Task...');
 	return (dispatch) => {
 		request.then((task) => {
-			console.log('Task: ', task);
 			dispatch({
 				type: FETCH_TASK,
 				payload: task
@@ -40,14 +39,20 @@ export function fetchTask(id = "AB0MITrrT2WoIfKvmruvyw") {
 export function fetchStatus(id = "AB0MITrrT2WoIfKvmruvyw") {
 	const queue = new taskcluster.Queue();
 	const request = queue.status(id);
-	console.log('Fetching Status...');
 	return (dispatch) => {
 		request.then(({status}) => {
-			console.log('Status: ', status);
 			dispatch({
 				type: FETCH_STATUS,
 				payload: status
 			})
 		});
+	}
+}
+
+// Set Status to the 6 possible states (Completed, Pending, Running, etc.)
+export function setActiveTaskStatus(status) {
+	return {
+		type: ACTIVE_TASK_STATUS,
+		payload: status
 	}
 }
