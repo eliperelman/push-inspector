@@ -6,7 +6,6 @@ export default class Task extends Component {
   labelClassName(state) {
       let cl = "my-label";
       if (state == 'completed') {
-        console.log(cl + " label-completed");
         return cl + " label-completed";
       } else if (state == 'failed') {
         return cl + " label-failed";
@@ -24,7 +23,6 @@ export default class Task extends Component {
   render() {
     if(!!this.props.task) {
       let state = this.labelClassName(this.props.task.status.state);
-      console.log('state: ', state);
       return (
         <tr>
             <td>{this.props.task.status.taskId}</td>

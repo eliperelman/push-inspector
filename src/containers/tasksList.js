@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Task from '../components/task';
@@ -11,15 +13,18 @@ class TasksList extends Component {
 
 	constructor(props) {
 		super(props);
-
 	}
 
 	componentWillMount() {
-		this.props.fetchTasks();
+		const { taskGroupId } = this.props.params;
+		this.props.fetchTasks(taskGroupId);
 	}
 
 	taskClicked(task) {
-		this.props.setActiveTask(task);
+		const { taskId, taskGroupId } = task.status;
+		hashHistory.push(taskGroupId + '/' + taskId);
+		this.props.fetchTask(taskId);
+		this.props.fetchStatus(taskId);
 	}
 
   renderTasks(tasks) {
@@ -68,23 +73,27 @@ class TasksList extends Component {
 
 	render() {
 		const tasks = this.props.tasks;
-
 		return (
-			<div className="col-xs-5">
-				<PieChart
-					tasks={this.props.tasks}
-					onSliceClick={this.pieSliceOnClick.bind(this)} />
-				<table id="tasks-list" className="table task-list-table">
-          <thead>
-          <tr>
-              <th>TaskId</th>
-              <th>Name</th>
-              <th>State</th>
-              <th>Runs</th>
-          </tr>
-          </thead>
-          {this.renderTasks(tasks)}
-        </table>
+			<div>
+				<div className="col-xs-5">
+					<PieChart
+						tasks={this.props.tasks}
+						onSliceClick={this.pieSliceOnClick.bind(this)} />
+					<table id="tasks-list" className="table task-list-table">
+						<thead>
+						<tr>
+								<th>TaskId</th>
+								<th>Name</th>
+								<th>State</th>
+								<th>Runs</th>
+						</tr>
+						</thead>
+						{this.renderTasks(tasks)}
+					</table>
+				</div>
+				<div className="col-xs-7">
+					{this.props.children}
+				</div>
 			</div>
 		);
 	}

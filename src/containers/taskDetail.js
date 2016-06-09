@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import * as bs from 'react-bootstrap';
+import taskcluster from 'taskcluster-client';
 
 class TaskDetail extends Component {
 
@@ -20,12 +21,20 @@ class TaskDetail extends Component {
 		});
 	}
 
+	componentWillMount() {
+		const { taskId } = this.props.params;
+		this.props.fetchStatus(taskId);
+		this.props.fetchTask(taskId);
+	}
+
 	render() {
-		if(!!!this.props.activeTask) {
-			return <div>Loading...</div>
+		console.log('rendering taskDetail: ');
+		if(!!!this.props.task || !!!this.props.status) {
+			return <div>Loading...</div>;
 		}
-		const task = this.props.activeTask.task;
-		const status = this.props.activeTask.status;
+
+		const { task, status } = this.props;
+
 		return (
 			<table>
 				<tbody>
@@ -92,7 +101,9 @@ class TaskDetail extends Component {
 
 function mapStateToProps(state) {
 	return {
-		activeTask: state.activeTask
+		activeTask: state.activeTask,
+		task: state.task,
+		status: state.status
 	}
 }
 

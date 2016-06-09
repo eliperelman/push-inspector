@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
+
 import tasksReducer from './tasks';
-import activeTaskReducer from './activeTask';
-import activeTaskStatusReducer from './activeTaskStatus';
+import taskReducer from './task';
+import statusReducer from './status';
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
-  activeTask: activeTaskReducer,
-  activeTaskStatus: activeTaskStatusReducer
+  task: taskReducer,
+  status: statusReducer
 });
 
 export default rootReducer;

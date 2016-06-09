@@ -9,8 +9,7 @@ export default class App extends Component {
     return (
       <div>
         <Search />
-        <TasksList />
-        <TaskDetail />
+        {this.props.children}
       </div>
     );
   }

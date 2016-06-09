@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import PreviousTasks from '../components/previousTasks';
+import { Link } from 'react-router';
 
 class Search extends Component {
 
@@ -25,17 +27,20 @@ class Search extends Component {
 
   render() {
 		return (
-      <form onSubmit={this.onFormSubmit} className="input-group search-form">
-        <input
-          placeholder="Enter a task group ID"
-          className="form-control"
-          value={this.state.term}
-          onChange={this.onInputChange} />
+      <div>
+        <form onSubmit={this.onFormSubmit} className="input-group search-form">
+          <input
+            placeholder="Enter a task group ID"
+            className="form-control"
+            value={this.state.term}
+            onChange={this.onInputChange} />
 
-        <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary">Submit</button>
-        </span>
-      </form>
+          <Link className="input-group-btn" to={this.state.term}>
+            <button type="submit" className="btn btn-secondary">Inspect</button>
+          </Link>
+        </form>
+        <PreviousTasks />
+      </div>
 		);
 
 	}
