@@ -101,8 +101,8 @@ export default class PieChart extends Component {
 					animate={{
 						duration: 1000,
 					}}
-          height={200}
-          width={200}
+          height={150}
+          width={150}
 					colorScale={chartColors}
 					style={{
 				    labels: {

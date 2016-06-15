@@ -13,10 +13,9 @@ class TaskDetail extends Component {
 
 	showScope(task, status) {
 		const scopes = task.scopes;
-		const id = status.taskId;
-		return scopes.map((scope) => {
+		return scopes.map((scope, i) => {
 			return (
-				<ul key={id}>{scope}</ul>
+				<ul key={i}>{scope}</ul>
 			);
 		});
 	}
@@ -28,7 +27,6 @@ class TaskDetail extends Component {
 	}
 
 	render() {
-		console.log('rendering taskDetail: ');
 		if(!!!this.props.task || !!!this.props.status) {
 			return <div>Loading...</div>;
 		}
