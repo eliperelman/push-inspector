@@ -36,14 +36,14 @@ class Table extends Component {
 	}
 
   generateHeaders() {
-      var cols = ["TaskId", "Name", "State", "Runs"];
+      var cols = ["Name", "State"];
       return cols.map((colData, i) => {
           return <th key={i}> {colData} </th>;
       });
   }
 
   generateRows() {
-      var cols = ["TaskId", "Name", "State", "Runs"],
+      var cols = ["Name", "State"],
           data = this.props.tasks;
 
       if(data.length > 0) {
@@ -60,10 +60,8 @@ class Table extends Component {
 
             return (
                 <tr onClick={this.taskClicked.bind(this, task)} key={i}>
-                  <td>{task.status.taskId}</td>
                   <td>{task.task.metadata.name}</td>
                   <td className={state}>{task.status.state}</td>
-                  <td>{task.status.runs.length}</td>
                 </tr>
             );
         });
@@ -82,7 +80,6 @@ class Table extends Component {
   }
 
   render() {
-
     return (
       <div className="table-wrapper">
         {this.renderList()}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import PreviousTasks from '../components/previousTasks';
 import { Link } from 'react-router';
 
 class Search extends Component {
