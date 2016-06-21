@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import * as bs from 'react-bootstrap';
 
 class Table extends Component {
 
@@ -35,11 +36,26 @@ class Table extends Component {
 		this.props.fetchStatus(taskId);
 	}
 
+  clearFilter() {
+    this.props.setActiveTaskStatus(null);
+  }
+
   generateHeaders() {
-      var cols = ["Name", "State"];
-      return cols.map((colData, i) => {
-          return <th key={i}> {colData} </th>;
-      });
+      const { activeTaskStatus } = this.props;
+
+      return (
+        <tr>
+          <th className="tableColumnBaseline">Name</th>
+          <th>
+            State&nbsp;
+            <button className={!!activeTaskStatus ? "" : "hideVisibility"} onClick={this.clearFilter.bind(this)}>
+              Clear
+            </button>
+
+          </th>
+
+        </tr>
+      );
   }
 
   generateRows() {
@@ -60,7 +76,6 @@ class Table extends Component {
 
             return (
                 <tr onClick={this.taskClicked.bind(this, task)} key={i}>
-                  <td>{task.status.taskId}</td>
                   <td>{task.task.metadata.name}</td>
                   <td className={state}>{task.status.state}</td>
                 </tr>
@@ -76,7 +91,7 @@ class Table extends Component {
 
         return (
             <table id="tasks-list" className="table task-list-table">
-                <thead><tr>{headerComponents}</tr></thead>
+                <thead>{headerComponents}</thead>
                 <tbody>{rowComponents}</tbody>
             </table>
         );

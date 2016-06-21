@@ -79,7 +79,7 @@ class TaskDetail extends Component {
 		const { task, status } = this.props;
 
 		return (
-			<table>
+			<table className="detail-table">
 				<tbody>
 					<tr>
 						<td><b>Name</b></td>

@@ -16,10 +16,10 @@ class App extends Component {
         <ProgressBar
           tasks={tasks}
           setActiveTaskStatus={setActiveTaskStatus}/>
-        <div className={!!tasks.length ? "hide" : ""}>
+        <div className={!!tasks.length ? "hideDisplay" : ""}>
           <Loading />
         </div>
-        <div className={!!!tasks.length ? "hide" : ""}>
+        <div className={!!!tasks.length ? "hideDisplay" : ""}>
           {children}
         </div>
       </div>
