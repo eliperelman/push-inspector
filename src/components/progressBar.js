@@ -21,10 +21,8 @@ export default class ProgressBar extends Component {
       this.props.setActiveTaskStatus("pending");
     } else if(title.match(/Exception*/g)) {
       this.props.setActiveTaskStatus("exception");
-    } else if(title.match(/Failed*/g)) {
-      this.props.setActiveTaskStatus("unscheduled");
     } else if(title.match(/Unscheduled*/g)) {
-
+      this.props.setActiveTaskStatus("unscheduled");
     }
 
   }

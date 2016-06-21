@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Listings from './containers/listings';
-import TaskDetail from './containers/taskDetail';
+import TabsView from './containers/tabsView';
 
 import App from './components/app';
 
 export default (
   <Route path="/" component={App}>
     <Route path=":taskGroupId" component={Listings}>
-      <Route path=":taskId" component={TaskDetail}></Route>
+      <Route path=":taskId" component={TabsView}></Route>
     </Route>
   </Route>
 );

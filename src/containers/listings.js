@@ -54,40 +54,11 @@ class Listings extends Component {
 		this.setupListener();
 	}
 
-	pieSliceOnClick(elem) {
-		const text = elem.text;
-		switch (text) {
-			case "C":
-				this.props.setActiveTaskStatus("completed");
-				break;
-			case "F":
-				this.props.setActiveTaskStatus("failed");
-				break;
-			case "E":
-				this.props.setActiveTaskStatus("exception");
-				break;
-			case "U":
-				this.props.setActiveTaskStatus("unscheduled");
-				break;
-			case "P":
-				this.props.setActiveTaskStatus("pending");
-				break;
-			case "R":
-				this.props.setActiveTaskStatus("running");
-				break;
-		}
-
-	}
-
 	render() {
 		const tasks = this.props.tasks;
 		return (
 			<div>
 				<div className="col-xs-6 removeLeftPadding removeRightPadding">
-					<ProgressBar
-						tasks={this.props.tasks}
-						onSliceClick={this.pieSliceOnClick.bind(this)}
-						setActiveTaskStatus={this.props.setActiveTaskStatus}/>
 					<Table />
 				</div>
 				<div className="col-xs-6">
@@ -101,7 +72,6 @@ class Listings extends Component {
 function mapStateToProps(state) {
 	return {
 		tasks: state.tasks,
-		activeTaskStatus: state.activeTaskStatus
 	}
 }
 

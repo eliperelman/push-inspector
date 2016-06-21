@@ -49,20 +49,11 @@ class TaskDetail extends Component {
 						<td>{task.metadata.owner}</td>
 					</tr>
 					<tr>
-						<td><b>Source</b></td>
-						<td>{task.metadata.source}</td>
-					</tr>
-
-					<tr>
 						<td><b>State</b></td>
 						<td>{status.state}</td>
 					</tr>
 					<tr>
-						<td><b>Retries Left</b></td>
-						<td>{status.retriesLeft}</td>
-					</tr>
-					<tr>
-						<td><b>Action</b></td>
+						<td><b>Actions</b></td>
 						<td>
 							<bs.ButtonToolbar>
 								<bs.Button bsSize="small"><bs.Glyphicon glyph="play"/>&nbsp;Schedule Task</bs.Button>
@@ -71,14 +62,6 @@ class TaskDetail extends Component {
 								<bs.Button bsSize="small"><bs.Glyphicon glyph="trash"/>&nbsp;Purger Worker Cache</bs.Button>
 							</bs.ButtonToolbar>
 						</td>
-					</tr>
-					<tr>
-						<td><b>Scope</b></td>
-						<td>{this.showScope(task, status)}</td>
-					</tr>
-					<tr>
-						<td className="baseline-align"><b>Task Definition Payload</b></td>
-						<td><pre><code>{JSON.stringify(task.payload, null, 2)}</code></pre></td>
 					</tr>
 					<tr>
 						<td><b>Debug</b></td>
@@ -99,7 +82,6 @@ class TaskDetail extends Component {
 
 function mapStateToProps(state) {
 	return {
-		activeTask: state.activeTask,
 		task: state.task,
 		status: state.status
 	}

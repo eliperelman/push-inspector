@@ -1,16 +1,29 @@
 import React from 'react';
 import { Component } from 'react';
-import Listings from '../containers/listings';
-import TaskDetail from '../containers/taskDetail';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import Search from '../containers/search';
+import ProgressBar from './progressBar';
 
-export default class App extends Component {
+
+class App extends Component {
   render() {
     return (
       <div>
         <Search />
+        <ProgressBar
+          tasks={this.props.tasks}
+          setActiveTaskStatus={this.props.setActiveTaskStatus}/>
         {this.props.children}
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+	return {
+		tasks: state.tasks,
+	}
+}
+
+export default connect(mapStateToProps, actions )(App)
