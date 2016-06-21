@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import * as bs from 'react-bootstrap';
 import taskcluster from 'taskcluster-client';
+import Modal from '../shared/modal';
 
 class TaskDetail extends Component {
 
@@ -56,10 +57,26 @@ class TaskDetail extends Component {
 						<td><b>Actions</b></td>
 						<td>
 							<bs.ButtonToolbar>
-								<bs.Button bsSize="small"><bs.Glyphicon glyph="play"/>&nbsp;Schedule Task</bs.Button>
-								<bs.Button bsSize="small"><bs.Glyphicon glyph="repeat"/>&nbsp;Retrigger Task</bs.Button>
-								<bs.Button bsSize="small"><bs.Glyphicon glyph="stop"/>&nbsp;Cancel Task</bs.Button>
-								<bs.Button bsSize="small"><bs.Glyphicon glyph="trash"/>&nbsp;Purger Worker Cache</bs.Button>
+								<Modal
+				          label="Schedule Task"
+				          content="Text in a modal"
+				          glyph="play"
+				          actionOnClick={() => console.log('action clicked')} />
+								<Modal
+				          label="Retrigger"
+				          content="Text in a modal"
+				          glyph="repeat"
+				          actionOnClick={() => console.log('action clicked')} />
+								<Modal
+				          label="Cancel Task"
+				          content="Text in a modal"
+				          glyph="stop"
+				          actionOnClick={() => console.log('action clicked')} />
+								<Modal
+				          label="Purger Worker Cache"
+				          content="Text in a modal"
+				          glyph="trash"
+				          actionOnClick={() => console.log('action clicked')} />
 							</bs.ButtonToolbar>
 						</td>
 					</tr>
@@ -67,8 +84,16 @@ class TaskDetail extends Component {
 						<td><b>Debug</b></td>
 						<td>
 							<bs.ButtonToolbar>
-						    <bs.Button bsSize="small"><bs.Glyphicon glyph="edit"/>&nbsp;Edit and Create</bs.Button>
-								<bs.Button bsSize="small"><bs.Glyphicon glyph="console"/>&nbsp;One-Click Loaner</bs.Button>
+								<Modal
+				          label="Edit and Create"
+				          content="Text in a modal"
+				          glyph="edit"
+				          actionOnClick={() => console.log('action clicked')} />
+								<Modal
+				          label="One-Click Loaner"
+				          content="Text in a modal"
+				          glyph="console"
+				          actionOnClick={() => console.log('action clicked')} />
 							</bs.ButtonToolbar>
 						</td>
 					</tr>
