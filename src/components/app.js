@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import TasksList from '../containers/tasksList';
+import Listings from '../containers/listings';
 import TaskDetail from '../containers/taskDetail';
 import Search from '../containers/search';
 

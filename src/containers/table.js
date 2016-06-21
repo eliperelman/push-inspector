@@ -60,6 +60,7 @@ class Table extends Component {
 
             return (
                 <tr onClick={this.taskClicked.bind(this, task)} key={i}>
+                  <td>{task.status.taskId}</td>
                   <td>{task.task.metadata.name}</td>
                   <td className={state}>{task.status.state}</td>
                 </tr>

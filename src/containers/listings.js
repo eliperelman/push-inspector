@@ -4,14 +4,14 @@ import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Task from '../components/task';
-import PieChart from '../components/pieChart';
+import ProgressBar from '../components/progressBar';
 import Table from './table';
 import { VictoryPie, VictoryAnimation } from 'victory';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import taskcluster from 'taskcluster-client';
 
 
-class TasksList extends Component {
+class Listings extends Component {
 
 	constructor(props) {
 		super(props);
@@ -22,7 +22,6 @@ class TasksList extends Component {
 		let queueEvents = new taskcluster.QueueEvents();
 		let listener = new taskcluster.WebListener();
 		var id = this.props.params.taskGroupId;
-
 		listener.bind(queueEvents.taskPending({
 		  taskGroupId: id
 		}));
@@ -31,8 +30,9 @@ class TasksList extends Component {
 		  taskGroupId: id
 		}));
 
-		listener.on("message", function(message) {
-			console.log('MESSAGE: ', message);
+		listener.on("message", (message) => {
+			console.log('MESSAGE: ', message.payload.status);
+			this.props.fetchTasks(params.taskGroupId);
 			//  message.payload.status is the only property that is consistent across all exchanges
 		  //  message.payload.task never changes because its the task definition
 		  //  updateReduxStore();
@@ -45,12 +45,7 @@ class TasksList extends Component {
 		  //  If you reconnect, make sure there is a limit. if more than 5 times in the 5 min interval, then stop reconnecting.
 		});
 
-		var resumePromise = listener.resume();
-		// Listen and consume events:
-		resumePromise.then(function(data) {
-	  	// Now listening
-			console.log('data: ', data);
-		});
+		listener.resume();
 	}
 
 	componentWillMount() {
@@ -88,13 +83,14 @@ class TasksList extends Component {
 		const tasks = this.props.tasks;
 		return (
 			<div>
-				<div className="col-xs-5">
-					<PieChart
+				<div className="col-xs-6 removeLeftPadding removeRightPadding">
+					<ProgressBar
 						tasks={this.props.tasks}
-						onSliceClick={this.pieSliceOnClick.bind(this)} />
+						onSliceClick={this.pieSliceOnClick.bind(this)}
+						setActiveTaskStatus={this.props.setActiveTaskStatus}/>
 					<Table />
 				</div>
-				<div className="col-xs-7">
+				<div className="col-xs-6">
 					{this.props.children}
 				</div>
 			</div>
@@ -109,4 +105,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps, actions )(TasksList)
+export default connect(mapStateToProps, actions )(Listings)

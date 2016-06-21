@@ -6,7 +6,9 @@ export default function(state = [], action) {
 	console.log('action: ', action);
 	switch(action.type) {
 		case FETCH_TASKS:
-			return [...state, ...action.payload ];
+			console.log('state: ', state);
+			console.log('action.payload: ', action.payload);
+			return action.payload;
 	}
 	return state;
 }

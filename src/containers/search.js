@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Link } from 'react-router';
+import axios from 'axios';
+
 
 class Search extends Component {
 
@@ -11,8 +13,9 @@ class Search extends Component {
       term: ''
     };
 
-    this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+
   }
 
   onFormSubmit(event) {
@@ -21,11 +24,13 @@ class Search extends Component {
   }
 
   onInputChange(event) {
+    console.log(this.state.term);
     this.setState({term: event.target.value});
   }
 
   render() {
-		return (
+
+    return (
       <div>
         <form onSubmit={this.onFormSubmit} className="input-group search-form">
           <input
@@ -45,4 +50,4 @@ class Search extends Component {
 }
 
 
-export default connect(null, actions )(Search)
+export default connect(null, actions)(Search)

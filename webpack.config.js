@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    './src/index.js'
+    'babel-polyfill', 'babel-core/register','./src/index.js'
   ],
   output: {
     path: __dirname,
