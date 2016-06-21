@@ -10,45 +10,32 @@ import taskcluster from 'taskcluster-client';
 import axios from 'axios';
 
 //	Get task group list
+// 	This function will iterate recursively to get the full list of tasks
+//	It will dispatch on each call
 export function fetchTasks(id = "ARUrTTyjQRiXEeo1uySLnA") {
 	const queue = new taskcluster.Queue();
-	//const iterator = getTasks();
+	let list = [];
 	return (dispatch) => {
-		//let data = iterator.next();
-		const request = queue.listTaskGroup(id);
-		request.then(({tasks, continuationToken}) => {
-			console.log('continuationToken: ', continuationToken);
-			dispatch({
-				type: FETCH_TASKS,
-				payload: tasks
-			})
-		});
+		(function iteratePromises(token) {
+			let options = {};
+			if (token) {
+				options.continuationToken = token;
+			}
+			const request = queue.listTaskGroup(id, options);
+			request.then(({tasks, continuationToken}) => {
+				list = list.concat(tasks);
+				dispatch({
+					type: FETCH_TASKS,
+					payload: list
+				});
+				if(continuationToken) {
+					iteratePromises(continuationToken);
+				}
+			});
+		}());
 	}
-
-
-	function* getTasks(){
-		let result = queue.listTaskGroup(id).then((response) => {
-			return response;
-		});
-		if(result._65 != null) {
-			yield result._65.tasks;
-		}
-	  // const result = yield queue.listTaskGroup(id, { continuationToken: token }).then(({tasks, continuationToken}) => {
-		// 	return {tasks, continuationToken};
-		// });
-	}
-
-	// function* foo(){
-	//   var index = 0;
-	//   while (index <= 2)
-	//     yield index++;
-	// }
-	// var iterator = foo();
-	// console.log(iterator.next()); // { value: 0, done: false }
-	// console.log(iterator.next()); // { value: 1, done: false }
-	// console.log(iterator.next()); // { value: 2, done: false }
-	// console.log(iterator.next()); // { value: undefined, done: true }
 }
+
 //	Get task definition
 export function fetchTask(id = "AB0MITrrT2WoIfKvmruvyw") {
 	const queue = new taskcluster.Queue();
