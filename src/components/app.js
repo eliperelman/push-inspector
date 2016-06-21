@@ -4,17 +4,24 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Search from '../containers/search';
 import ProgressBar from './progressBar';
+import Loading from '../shared/loading';
 
 class App extends Component {
 
   render() {
+    const { tasks, children, setActiveTaskStatus } = this.props;
     return (
       <div>
         <Search />
         <ProgressBar
-          tasks={this.props.tasks}
-          setActiveTaskStatus={this.props.setActiveTaskStatus}/>
-        {this.props.children}
+          tasks={tasks}
+          setActiveTaskStatus={setActiveTaskStatus}/>
+        <div className={!!tasks.length ? "hide" : ""}>
+          <Loading />
+        </div>
+        <div className={!!!tasks.length ? "hide" : ""}>
+          {children}
+        </div>
       </div>
     );
   }

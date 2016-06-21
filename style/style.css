@@ -52,3 +52,7 @@ button[type="submit"] {
   vertical-align: baseline;
   border-radius: .25em;
 }
+
+.hide {
+  display: none;
+}

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import Loading from '../shared/loading';
 
 class Table extends Component {
 
@@ -74,13 +73,6 @@ class Table extends Component {
         var headerComponents = this.generateHeaders();
         var rowComponents = this.generateRows();
 
-        if(!rowComponents) {
-          return (
-            <div>
-              <Loading />
-            </div>
-          )
-        }
 
         return (
             <table id="tasks-list" className="table task-list-table">
