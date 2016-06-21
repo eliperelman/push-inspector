@@ -9,9 +9,11 @@ import Loading from '../shared/loading';
 class App extends Component {
 
   render() {
-    const { tasks, children, setActiveTaskStatus } = this.props;
+    const { tasks, children, setActiveTaskStatus, params } = this.props;
+    const { taskGroupId } = params;
     return (
-      <div>
+      <div className="topPadding">
+        <b>taskGroupId</b>&nbsp;{taskGroupId}
         <Search />
         <ProgressBar
           tasks={tasks}

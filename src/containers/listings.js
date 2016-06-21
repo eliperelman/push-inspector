@@ -57,11 +57,11 @@ class Listings extends Component {
 	render() {
 		const tasks = this.props.tasks;
 		return (
-			<div>
-				<div className="col-xs-4 removeLeftPadding removeRightPadding">
+			<div>				
+				<div className="col-xs-5 removeLeftPadding removeRightPadding">
 					<Table />
 				</div>
-				<div className="col-xs-8">
+				<div className="col-xs-7">
 					{this.props.children}
 				</div>
 			</div>

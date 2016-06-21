@@ -9,7 +9,13 @@
   overflow-y: auto;
   font-size:0.7em;
 }
+.detail-table {
+    width:100%;
+}
 
+.topPadding {
+  padding-top: 15px;
+}
 .search-form {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -53,6 +59,13 @@ button[type="submit"] {
   border-radius: .25em;
 }
 
-.hide {
+.hideDisplay {
   display: none;
+}
+.hideVisibility {
+  visibility: hidden;
+}
+
+.tableColumnBaseline {
+  vertical-align: baseline !important;
 }
