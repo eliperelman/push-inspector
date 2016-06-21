@@ -44,6 +44,7 @@
     "react-bootstrap-table": "^2.3.4",
     "react-chartjs": "^0.7.3",
     "react-dom": "^15.1.0",
+    "react-fontawesome": "^1.1.0",
     "react-progressbar": "^1.2.0",
     "react-redux": "^4.0.0",
     "react-router": "^2.4.1",
@@ -54,6 +55,7 @@
     "redux-thunk": "^2.1.0",
     "request": "^2.65.0",
     "request-promise": "^3.0.0",
+    "spinkit": "^1.2.5",
     "victory": "^0.8.0"
   }
 }

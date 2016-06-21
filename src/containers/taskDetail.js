@@ -4,7 +4,6 @@ import * as actions from '../actions';
 import * as bs from 'react-bootstrap';
 import taskcluster from 'taskcluster-client';
 import Modal from '../shared/modal';
-
 class TaskDetail extends Component {
 
 	constructor(props) {
@@ -27,10 +26,55 @@ class TaskDetail extends Component {
 		this.props.fetchTask(taskId);
 	}
 
+
+
 	render() {
 		if(!!!this.props.task || !!!this.props.status) {
 			return <div>Loading...</div>;
 		}
+
+		const scheduleText = (
+			<div>
+				<p>
+					Are you sure you wish to schedule the task?
+					This will <b>overwrite any scheduling process</b> taking place,
+					if this task is part of a continous integration process scheduling
+					this task may cause your code to land with broken tests.
+				</p>
+			</div>
+		);
+
+		const retriggerText = (
+			<div>
+				<p>
+					This will duplicate the task and create it under a different
+					<code>taskId</code>.<br/><br/>
+					The new task will be altered as to:
+					<ul>
+						<li>Set <code>task.payload.features.interactive = true</code>,</li>
+						<li>Strip <code>task.payload.caches</code> to avoid poisoning,</li>
+						<li>Ensures <code>task.payload.maxRunTime</code> is minimum 60 minutes,</li>
+						<li>Strip <code>task.routes</code> to avoid side-effects, and</li>
+						<li>Set the environment variable<code>TASKCLUSTER_INTERACTIVE=true</code>.</li>
+					</ul>
+					Note: this may not work with all tasks.
+				</p>
+			</div>
+		);
+
+
+		const cancelText = (
+			<div>
+				<p>
+					Are you sure you wish to cancel this task?
+					Notice that another process or developer may still be able to
+					schedule a rerun. But all existing runs will be aborted and any
+					scheduling process will not be able to schedule the task.
+				</p>
+			</div>
+		);
+
+
 
 		const { task, status } = this.props;
 
@@ -50,6 +94,14 @@ class TaskDetail extends Component {
 						<td>{task.metadata.owner}</td>
 					</tr>
 					<tr>
+						<td><b>TaskId</b></td>
+						<td>
+							<a target="_blank" href={'https://queue.taskcluster.net/v1/task/' + status.taskId}>{status.taskId}
+								&nbsp;<i className='fa fa-external-link'></i>
+							</a>
+						</td>
+					</tr>
+					<tr>
 						<td><b>State</b></td>
 						<td>{status.state}</td>
 					</tr>
@@ -59,17 +111,17 @@ class TaskDetail extends Component {
 							<bs.ButtonToolbar>
 								<Modal
 				          label="Schedule Task"
-				          content="Text in a modal"
+				          content={scheduleText}
 				          glyph="play"
 				          actionOnClick={() => console.log('action clicked')} />
 								<Modal
 				          label="Retrigger"
-				          content="Text in a modal"
+				          content={retriggerText}
 				          glyph="repeat"
 				          actionOnClick={() => console.log('action clicked')} />
 								<Modal
 				          label="Cancel Task"
-				          content="Text in a modal"
+				          content={cancelText}
 				          glyph="stop"
 				          actionOnClick={() => console.log('action clicked')} />
 								<Modal
