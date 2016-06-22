@@ -22,6 +22,7 @@ class TabsView extends Component {
         <TabList>
           <Tab>Task</Tab>
           <Tab>Run</Tab>
+					<Tab>Try</Tab>
         </TabList>
 
         <TabPanel>
@@ -29,6 +30,10 @@ class TabsView extends Component {
         </TabPanel>
         <TabPanel>
           <h2>Hello from Run</h2>
+        </TabPanel>
+				<TabPanel>
+          <h4>Try</h4>
+					Developers would come to this view to use the API that ahal is working on
         </TabPanel>
       </Tabs>
     )

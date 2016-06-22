@@ -49,7 +49,7 @@ class Table extends Component {
           <th>
             State&nbsp;
             <button className={!!activeTaskStatus ? "" : "hideVisibility"} onClick={this.clearFilter.bind(this)}>
-              Clear
+              Clear Filter
             </button>
 
           </th>
