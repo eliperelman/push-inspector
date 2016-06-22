@@ -11,6 +11,8 @@ class App extends Component {
   render() {
     const { tasks, children, setActiveTaskStatus, params } = this.props;
     const { taskGroupId } = params;
+    console.log('tasks: ', tasks);
+    console.log('taskGroupId: ', taskGroupId);
     return (
       <div className="topPadding">
         <b>taskGroupId</b>&nbsp;{taskGroupId}
@@ -18,7 +20,7 @@ class App extends Component {
         <ProgressBar
           tasks={tasks}
           setActiveTaskStatus={setActiveTaskStatus}/>
-        <div className={!!tasks.length ? "hideDisplay" : ""}>
+        <div className={(!!tasks.length && !!taskGroupId) || (!!!tasks.length && !!!taskGroupId) ? "hideDisplay" : ""}>
           <Loading />
         </div>
         <div className={!!!tasks.length ? "hideDisplay" : ""}>

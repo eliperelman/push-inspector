@@ -29,9 +29,7 @@ class Search extends Component {
   onInputChange(event) {
     this.setState({term: event.target.value});
   }
-  // <Link className="input-group-btn" to={this.state.term}>
-  //   <button type="submit" className="btn btn-secondary">Inspect</button>
-  // </Link>
+
   render() {
 
     return (
