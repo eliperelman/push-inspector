@@ -13,30 +13,39 @@ import taskcluster from 'taskcluster-client';
 
 class Listings extends Component {
 
+	constructor(props) {
+		super(props);
+		this.listener = null;
+	}
+
+	// Close Listener connection
+	removeBindings() {
+		this.listener.close();
+	}
+
+
 	//	Remove the list of tasks that were loaded previously
   componentWillUnmount(nextProps) {
 			this.props.removeTasks();
+			this.removeBindings();
+
   }
 
-	constructor(props) {
-		super(props);
-	}
 
 	setupListener() {
 		const queue = new taskcluster.Queue(),
 					queueEvents = new taskcluster.QueueEvents(),
-					listener = new taskcluster.WebListener(),
 					{ params } = this.props;
-
-		listener.bind(queueEvents.taskPending({
+		this.listener = new taskcluster.WebListener();
+		this.listener.bind(queueEvents.taskPending({
 		  taskGroupId: params.taskGroupId
 		}));
 
-		listener.bind(queueEvents.taskCompleted({
+		this.listener.bind(queueEvents.taskCompleted({
 		  taskGroupId: params.taskGroupId
 		}));
 
-		listener.on("message", (message) => {
+		this.listener.on("message", (message) => {
 			console.log('MESSAGE: ', message.payload.status);
 			this.props.fetchTasks(params.taskGroupId);
 			//  message.payload.status is the only property that is consistent across all exchanges
@@ -44,14 +53,14 @@ class Listings extends Component {
 		  //  updateReduxStore();
 		});
 
-		listener.on("error", function(err) {
+		this.listener.on("error", function(err) {
 			console.log('ERROR: ', err);
 			//  Perhaps display an error banner on top of the dashboard. This happens when a user puts him laptop to sleep
 		  //  A smart way is to restart listening from scratch.
 		  //  If you reconnect, make sure there is a limit. if more than 5 times in the 5 min interval, then stop reconnecting.
 		});
 
-		listener.resume();
+		this.listener.resume();
 	}
 
 	componentWillMount() {

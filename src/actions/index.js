@@ -3,7 +3,8 @@ import {
 	FETCH_TASK,
 	FETCH_STATUS,
 	UPDATE_STATUS,
-	ACTIVE_TASK_STATUS
+	ACTIVE_TASK_STATUS,
+	FETCH_ARTIFACTS
 } from './types';
 
 import taskcluster from 'taskcluster-client';
@@ -45,6 +46,20 @@ export function fetchTask(id = "AB0MITrrT2WoIfKvmruvyw") {
 			dispatch({
 				type: FETCH_TASK,
 				payload: task
+			})
+		});
+	}
+}
+
+//	Fetch list of artifacts
+export function fetchArtifacts(id = "AB0MITrrT2WoIfKvmruvyw") {
+	const queue = new taskcluster.Queue();
+	const request = queue.listLatestArtifacts(id);
+	return (dispatch) => {
+		request.then((data) => {
+			dispatch({
+				type: FETCH_ARTIFACTS,
+				payload: data.artifacts
 			})
 		});
 	}

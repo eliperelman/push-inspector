@@ -51,9 +51,7 @@ class Table extends Component {
             <button className={!!activeTaskStatus ? "" : "hideVisibility"} onClick={this.clearFilter.bind(this)}>
               Clear Filter
             </button>
-
           </th>
-
         </tr>
       );
   }

@@ -4,16 +4,22 @@ import * as actions from '../actions';
 import * as bs from 'react-bootstrap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import TaskDetail from './TaskDetail';
+import TaskRun from '../components/taskRun';
 
 class TabsView extends Component {
 
 	handleSelect(index, last) {
 
 	}
-	render() {
-		const { params } = this.props;
-		return (
 
+	componentWillMount() {
+		const { params, fetchArtifacts } = this.props;
+		fetchArtifacts(params.taskId);
+	}
+
+	render() {
+		const { params, task, status, artifacts } = this.props;
+		return (
 
       <Tabs
         onSelect={this.handleSelect}
@@ -29,7 +35,7 @@ class TabsView extends Component {
           <TaskDetail params={params} />
         </TabPanel>
         <TabPanel>
-          <h2>Hello from Run</h2>
+          <TaskRun task={task} status={status} artifacts={artifacts} />
         </TabPanel>
 				<TabPanel>
           <h4>Try</h4>
@@ -40,5 +46,13 @@ class TabsView extends Component {
   }
 }
 
+function mapStateToProps(state) {
+	return {
+		task: state.task,
+		status: state.status,
+		artifacts: state.artifacts
+	}
+}
 
-export default connect(null, actions )(TabsView);
+
+export default connect(mapStateToProps, actions )(TabsView);
