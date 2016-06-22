@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import * as bs from 'react-bootstrap';
+
 export default class ProgressBar extends Component {
 
   constructor(props) {
@@ -82,8 +83,10 @@ export default class ProgressBar extends Component {
   }
 
   render() {
+
+    const { taskGroupId, tasks } = this.props;
     return (
-      <div>
+      <div className={!!tasks.length ? "" : "hideVisibility"}>
         {this.makeProgressBar()}
       </div>
     );

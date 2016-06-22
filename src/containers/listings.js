@@ -13,6 +13,11 @@ import taskcluster from 'taskcluster-client';
 
 class Listings extends Component {
 
+	//	Remove the list of tasks that were loaded previously
+  componentWillUnmount(nextProps) {
+			this.props.removeTasks();
+  }
+
 	constructor(props) {
 		super(props);
 	}
@@ -57,7 +62,7 @@ class Listings extends Component {
 	render() {
 		const tasks = this.props.tasks;
 		return (
-			<div>				
+			<div>
 				<div className="col-xs-5 removeLeftPadding removeRightPadding">
 					<Table />
 				</div>

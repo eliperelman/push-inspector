@@ -5,26 +5,29 @@ import * as actions from '../actions';
 import Search from '../containers/search';
 import ProgressBar from './progressBar';
 import Loading from '../shared/loading';
+import Nav from '../shared/nav';
 
 class App extends Component {
 
   render() {
     const { tasks, children, setActiveTaskStatus, params } = this.props;
     const { taskGroupId } = params;
-    console.log('tasks: ', tasks);
-    console.log('taskGroupId: ', taskGroupId);
     return (
-      <div className="topPadding">
-        <b>taskGroupId</b>&nbsp;{taskGroupId}
-        <Search />
-        <ProgressBar
-          tasks={tasks}
-          setActiveTaskStatus={setActiveTaskStatus}/>
-        <div className={(!!tasks.length && !!taskGroupId) || (!!!tasks.length && !!!taskGroupId) ? "hideDisplay" : ""}>
-          <Loading />
-        </div>
-        <div className={!!!tasks.length ? "hideDisplay" : ""}>
-          {children}
+      <div>
+        <Nav />
+        <div className="container">
+          <b>taskGroupId</b>&nbsp;{taskGroupId}
+          <Search />
+          <ProgressBar
+            taskGroupId = {taskGroupId}
+            tasks={tasks}
+            setActiveTaskStatus={setActiveTaskStatus}/>
+          <div className={(!!tasks.length && !!taskGroupId) || (!!!tasks.length && !!!taskGroupId) ? "hideDisplay" : ""}>
+            <Loading />
+          </div>
+          <div className={!!!tasks.length ? "hideDisplay" : ""}>
+            {children}
+          </div>
         </div>
       </div>
     );

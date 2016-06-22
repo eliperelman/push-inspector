@@ -4,6 +4,9 @@
 .removeRightPadding {
   padding-right: 0;
 }
+.remove-border-radius {
+  border-radius: 0;
+}
 .table-wrapper {
   height:400px;
   overflow-y: auto;
