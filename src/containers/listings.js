@@ -23,16 +23,17 @@ class Listings extends Component {
 	}
 
 	setupListener() {
-		const queue = new taskcluster.Queue();
-		let queueEvents = new taskcluster.QueueEvents();
-		let listener = new taskcluster.WebListener();
-		var id = this.props.params.taskGroupId;
+		const queue = new taskcluster.Queue(),
+					queueEvents = new taskcluster.QueueEvents(),
+					listener = new taskcluster.WebListener(),
+					{ params } = this.props;
+
 		listener.bind(queueEvents.taskPending({
-		  taskGroupId: id
+		  taskGroupId: params.taskGroupId
 		}));
 
 		listener.bind(queueEvents.taskCompleted({
-		  taskGroupId: id
+		  taskGroupId: params.taskGroupId
 		}));
 
 		listener.on("message", (message) => {
