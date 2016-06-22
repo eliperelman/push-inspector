@@ -20,14 +20,13 @@ class Search extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    console.log('form submitted');
     hashHistory.push(this.state.term);
+    this.props.removeTasks();
     this.props.fetchTasks(this.state.term);
 
   }
 
   onInputChange(event) {
-    console.log(this.state.term);
     this.setState({term: event.target.value});
   }
   // <Link className="input-group-btn" to={this.state.term}>

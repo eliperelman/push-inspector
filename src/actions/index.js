@@ -49,6 +49,16 @@ export function fetchTask(id = "AB0MITrrT2WoIfKvmruvyw") {
 		});
 	}
 }
+
+//	Get task definition
+export function removeTasks() {
+	const empty = [];
+	return {
+		type: FETCH_TASKS,
+		payload: empty
+	}
+}
+
 //	Get task status
 export function fetchStatus(id = "AB0MITrrT2WoIfKvmruvyw") {
 	const queue = new taskcluster.Queue();
