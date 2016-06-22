@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Link } from 'react-router';
 import axios from 'axios';
-
+import { hashHistory } from 'react-router';
 
 class Search extends Component {
 
@@ -20,14 +20,19 @@ class Search extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+    console.log('form submitted');
+    hashHistory.push(this.state.term);
     this.props.fetchTasks(this.state.term);
+
   }
 
   onInputChange(event) {
     console.log(this.state.term);
     this.setState({term: event.target.value});
   }
-
+  // <Link className="input-group-btn" to={this.state.term}>
+  //   <button type="submit" className="btn btn-secondary">Inspect</button>
+  // </Link>
   render() {
 
     return (
@@ -39,9 +44,9 @@ class Search extends Component {
             value={this.state.term}
             onChange={this.onInputChange} />
 
-          <Link className="input-group-btn" to={this.state.term}>
-            <button type="submit" className="btn btn-secondary">Inspect</button>
-          </Link>
+          <div className="input-group-btn">
+              <input className="button btn btn-secondary" type="submit" value="Inspect" />
+          </div>
         </form>
       </div>
 		);
