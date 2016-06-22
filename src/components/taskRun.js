@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import * as bs from 'react-bootstrap';
 import taskcluster from 'taskcluster-client';
+import _ from 'lodash';
 
 export default class TaskRun extends Component {
 
@@ -12,11 +13,10 @@ export default class TaskRun extends Component {
 
   getArtifacts() {
     const { artifacts } = this.props;
-    console.log('artifacts: ', artifacts);
     if(!!artifacts.length) {
       return artifacts.map((artifact,index) => {
         return (
-          <li key={index}>{artifact.name}</li>
+          <li key={index}><a>{artifact.name}</a></li>
         )
       });
     }else{
@@ -26,21 +26,22 @@ export default class TaskRun extends Component {
   }
 
   generateRows() {
-    const { task, status } = this.props;
-    const runNumber = status.runs.length - 1;
-    console.log('generating rows');
+    const { task, status } = this.props,
+          runNumber = status.runs.length - 1;
+
     const elemsToRender = {
       reasonCreated: status.runs[runNumber].reasonCreated,
       reasonResolved: status.runs[runNumber].reasonResolved,
       state: status.runs[runNumber].state,
       scheduled: status.runs[runNumber].scheduled,
-      started: status.runs[runNumber].started
+      started: status.runs[runNumber].started,
+      resolved: status.runs[runNumber].resolved,
     }
 
     return Object.keys(elemsToRender).map(function(key) {
       return (
         <tr>
-          <td><b>{key}</b></td>
+          <td><b>{ _.capitalize(key) }</b></td>
           <td>{elemsToRender[key]}</td>
         </tr>
       );
@@ -48,10 +49,11 @@ export default class TaskRun extends Component {
   }
 
   render() {
-    const { task, status } = this.props;
-    const runNumber = status.runs.length - 1;
-    const rowComponents = this.generateRows();
-    const artifactsComponent = this.getArtifacts();
+    const { task, status } = this.props,
+          runNumber = status.runs.length - 1,
+          rowComponents = this.generateRows(),
+          artifactsComponent = this.getArtifacts();
+
     return (
       <div>
         <table className="run-table">
@@ -66,7 +68,7 @@ export default class TaskRun extends Component {
                 <ul>{artifactsComponent}</ul>
               </td>
             </tr>
-            
+
             </tbody>
         </table>
 

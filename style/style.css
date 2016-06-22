@@ -8,9 +8,8 @@
   border-radius: 0;
 }
 .table-wrapper {
-  height:400px;
+  height:60vh;
   overflow-y: auto;
-  font-size:0.7em;
 }
 .detail-table, .run-table {
     width:100%;
